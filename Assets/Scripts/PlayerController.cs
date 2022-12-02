@@ -3,13 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private List<Level> levels;
-
     [SerializeField] private int startLevel;
     private Level _currentLevel;
+
+
+    public UnityEvent<int> levelChanged;
+    public UnityEvent<int> upperBoundReached;
+    public UnityEvent<int> lowerBoundReached;
     
     private void Start()
     {
@@ -41,6 +46,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                LevelChanged();
                 _currentLevel = temp;
             }
         }
@@ -54,17 +60,25 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                LevelChanged();
                 _currentLevel = temp;
             }
         }
     }
+    public void LevelChanged()
+    {
+        print("Level changed");
+        levelChanged.Invoke(levels.IndexOf(_currentLevel));
+    }
     public void UpperBoundReached()
     {
         print("Upper bound reached");
+        upperBoundReached.Invoke(levels.IndexOf(_currentLevel));
     }
     public void LowerBoundReached()
     {
         print("Lower bound reached");
+        lowerBoundReached.Invoke(levels.IndexOf(_currentLevel));
     }
 
     private void OnDrawGizmos()
