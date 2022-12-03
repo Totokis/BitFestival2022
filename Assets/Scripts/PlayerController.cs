@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     
     private void Start()
     {
+        Time.timeScale = 1f;
         _currentLevel = levels[startLevel];
     }
     public float speed = 5.0f;
