@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6713740132895041406}
   - component: {fileID: 6713740132895041407}
+  - component: {fileID: 8904184832886947113}
   m_Layer: 0
   m_Name: Sky
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2134156047
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d7a1ffec50f3c3d43a6a11d5ad9086b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -89,3 +90,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8904184832886947113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6713740132895041404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d91ad18d9be2c2a458f3cb73e8e8031e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

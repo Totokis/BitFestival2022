@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 6760210562234488801}
   - component: {fileID: 4727223047706004725}
   - component: {fileID: 2415563038717881213}
+  - component: {fileID: 7133358260857752346}
   m_Layer: 0
   m_Name: Resistor
   m_TagString: Untagged
@@ -232,3 +233,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7133358260857752346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4490106476551705530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d91ad18d9be2c2a458f3cb73e8e8031e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
