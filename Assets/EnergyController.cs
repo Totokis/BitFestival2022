@@ -25,6 +25,11 @@ public class EnergyController : MonoBehaviour
 
     public void ChangeEnergy(Single change)
     {
+        //if(change < 0)
+        //{
+        //    LeanTween.value()
+        //}
+
         CurrentEnergy += change;
         CurrentEnergy = Mathf.Clamp(CurrentEnergy, Single.MinValue, MAX_ENERGY);
         print("Current energy " + CurrentEnergy);

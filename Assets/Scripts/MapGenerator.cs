@@ -318,4 +318,11 @@ public class MapGenerator : MonoBehaviour
     {
         return _activeLevels[Random.Range(0, _activeLevels.Count)];
     }
+
+    internal void DeleteNonExistentPowerables()
+    {
+        //print(GeneratedPowerables.Count);
+        GeneratedPowerables.RemoveAll(p => !p);
+        //print(GeneratedPowerables.Count);
+    }
 }

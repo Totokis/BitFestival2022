@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -7474820939383000265}
   - component: {fileID: 1918583095039743449}
   - component: {fileID: -3765993331080839075}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PowerableObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,6 +112,7 @@ MonoBehaviour:
   onPower:
     m_PersistentCalls:
       m_Calls: []
+  PathController: {fileID: 0}
   WasActivated: 0
 --- !u!61 &-7474820939383000265
 BoxCollider2D:

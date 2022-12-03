@@ -39,6 +39,7 @@ public class PowerableObject : MonoBehaviour
     Boolean _performedActivation = false;
 
     public Boolean WasActivated = false;
+    public Boolean BuraWasApplied = false;
     public Boolean AllActivated() => ActivationNodes != null && ActivationNodes.Length > 0 && ActivationNodes.All(an => an.IsActivated);
     void Update()
     {
