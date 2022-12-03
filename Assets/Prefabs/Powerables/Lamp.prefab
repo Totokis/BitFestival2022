@@ -407,6 +407,22 @@ PrefabInstance:
       propertyPath: InitialModule.startLifetime.scalar
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 8373063160241234633, guid: 5b8e526d000724eb6ab5e14393df5b8c, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8373063160241234633, guid: 5b8e526d000724eb6ab5e14393df5b8c, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7657712
+      objectReference: {fileID: 0}
+    - target: {fileID: 8373063160241234633, guid: 5b8e526d000724eb6ab5e14393df5b8c, type: 3}
+      propertyPath: m_Color.r
+      value: 0.2783019
+      objectReference: {fileID: 0}
+    - target: {fileID: 8373063160241234633, guid: 5b8e526d000724eb6ab5e14393df5b8c, type: 3}
+      propertyPath: m_Intensity
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4598540370792416624, guid: 5b8e526d000724eb6ab5e14393df5b8c, type: 3}
@@ -650,7 +666,7 @@ MonoBehaviour:
   - {x: 0.1374402, y: -1.5088928, z: 0}
   m_ShapePathHash: 379398083
   m_Mesh: {fileID: 0}
-  m_InstanceId: 40386
+  m_InstanceId: 46464
 --- !u!224 &6463271196404682293 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1591803232442582114, guid: 8b85bc6dad78f5a43abb85fe52c89dee, type: 3}
