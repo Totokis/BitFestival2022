@@ -13,12 +13,14 @@ public class MapGenerator : MonoBehaviour
     private List<Single> _activeLevels = new List<Single>();
 
     public Transform trMapParent;
+    public Transform trCables;
 
     public GameObject objGroundPrefab;
     public GameObject objSkyPrefab;
     public GameObject objCablePrefab;
     public PowerableActivationNode objPowerableActivationNodePrefab;
     public List<PowerableObject> _powerableObjects = new List<PowerableObject>();
+    public List<GameObject> _things = new List<GameObject>();
 
     private Single _lastGroundX = 0;
     private Single _lastSkyX = 0;
@@ -29,9 +31,16 @@ public class MapGenerator : MonoBehaviour
     [HideInInspector] public List<GameObject> GeneratedCables = new List<GameObject>();
     [HideInInspector] public List<GameObject> GeneratedPowerables = new List<GameObject>();
 
+    Single oneUndergroundBackgroundWidth;
+    Single _nextPowerableX = 20f;
+    Single _nextThingX = 24f;
+
     // Start is called before the first frame update
     void Start()
     {
+        _nextPowerableX = 20f;
+        oneUndergroundBackgroundWidth = objGroundPrefab.GetComponent<RectTransform>().sizeDelta.x;
+
         _activeLevels = new List<float>()
         {
             -0.5f,
@@ -40,6 +49,7 @@ public class MapGenerator : MonoBehaviour
         };
 
         StartCoroutine(MapGeneratorCor());
+        StartCoroutine(FeatureGeneration());
     }
 
 
@@ -53,11 +63,37 @@ public class MapGenerator : MonoBehaviour
         thisGenerationSegmentStartXBefore -= (totalUndergroundSegmentWidth / 2f);
         GenerateSkyBackgrounds();
         GenerateCables();
-        GeneratePowerables(thisGenerationSegmentStartXBefore, totalUndergroundSegmentWidth);
 
         yield return new WaitForSeconds(_generationsCount > 3 ? 2.5f : 0f);
 
         StartCoroutine(MapGeneratorCor());
+        StartCoroutine(FeatureGeneration());
+    }
+
+    private IEnumerator FeatureGeneration()
+    {
+        if(_nextPowerableX < _lastGroundX)
+        {
+            SpawnPowerable();
+            _nextPowerableX += Random.Range(6f, 12f);
+            _nextThingX = _nextPowerableX + Random.Range(1.5f, 3f) * (Random.value > 0.5f ? 1f : -1f);
+        }
+
+        if (_nextThingX < _lastGroundX)
+        {
+            SpawnThing();
+        }
+
+        yield return new WaitForSeconds(_generationsCount > 3 ? 0.1f : 0f);
+
+        StartCoroutine(FeatureGeneration());
+    }
+
+    private void SpawnThing()
+    {
+        GameObject thing = Instantiate(_things[0], trMapParent);
+        thing.transform.localPosition = new Vector3(_nextThingX,
+            PickRandomActiveLevel(), 0f);
     }
 
     private void GenerateSkyBackgrounds()
@@ -70,29 +106,23 @@ public class MapGenerator : MonoBehaviour
         GeneratedSkies.Add(newSky);
     }
 
-    private void GeneratePowerables(Single beforeStartX, Single totalSegmentWidth)
+    private void SpawnPowerable()
     {
-        Int32 powerablesInThisSegment = Random.Range(1, 4);
+        PowerableObject powerable = Instantiate(_powerableObjects[0], trMapParent);
+        powerable.transform.localPosition = new Vector3(_nextPowerableX,
+            powerable.PositionY, 0f);
 
-        for (Int32 i = 0; i < powerablesInThisSegment; i++)
+        PowerableActivationNode[] nodes = new PowerableActivationNode[1];
+        for (Int32 n = 0; n < 1; n++)
         {
-            PowerableObject powerable = Instantiate(_powerableObjects[0], trMapParent);
-            Single thisPowerableX = beforeStartX + ((totalSegmentWidth / (powerablesInThisSegment + 1)) * (i + 1));
-            powerable.transform.localPosition = new Vector3(thisPowerableX,
-                powerable.PositionY, 0f);
-
-            PowerableActivationNode[] nodes = new PowerableActivationNode[1];
-            for(Int32 n = 0; n < 1; n++)
-            {
-                PowerableActivationNode newNode = Instantiate(objPowerableActivationNodePrefab, trMapParent);
-                newNode.transform.localPosition = new Vector3(thisPowerableX, _activeLevels[Random.Range(0, _activeLevels.Count)]);
-                nodes[n] = newNode;
-            }
-
-            powerable.AttachPowerableActivationNodes(nodes);
-
-            GeneratedPowerables.Add(powerable.gameObject);
+            PowerableActivationNode newNode = Instantiate(objPowerableActivationNodePrefab, trMapParent);
+            newNode.transform.localPosition = new Vector3(_nextPowerableX, PickRandomActiveLevel());
+            nodes[n] = newNode;
         }
+
+        powerable.AttachPowerableActivationNodes(nodes);
+
+        GeneratedPowerables.Add(powerable.gameObject);
     }
 
     private void GenerateCables()
@@ -103,7 +133,7 @@ public class MapGenerator : MonoBehaviour
         {
             foreach (Single level in _activeLevels)
             {
-                GameObject cable = Instantiate(objCablePrefab, trMapParent);
+                GameObject cable = Instantiate(objCablePrefab, trCables);
                 cable.transform.localPosition = new Vector3(_thisSegmentCableX + i * cableWidthTakingScale, level, 0);
                 GeneratedCables.Add(cable);
             }
@@ -125,9 +155,8 @@ public class MapGenerator : MonoBehaviour
         return totalSegmentWidth;
     }
 
-    // Update is called once per frame
-    void Update()
+    private Single PickRandomActiveLevel()
     {
-
+        return _activeLevels[Random.Range(0, _activeLevels.Count)];
     }
 }
