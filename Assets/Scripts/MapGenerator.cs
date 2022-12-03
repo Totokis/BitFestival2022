@@ -23,6 +23,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject objSkyPrefab;
     public GameObject objBackCityPrefab;
     public GameObject objCablePrefab;
+    public GameObject objBadCable;
     public GameObject objCurvedCable;
     public PowerableActivationNode objPowerableActivationNodePrefab;
     public List<PowerableObject> _powerableObjects = new List<PowerableObject>();
