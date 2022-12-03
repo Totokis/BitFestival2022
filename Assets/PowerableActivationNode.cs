@@ -14,7 +14,14 @@ public class PowerableActivationNode : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        print("trig");
         IsActivated = true;
         GetComponent<SpriteRenderer>().color = Color.green;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        print("trig");
+
     }
 }
