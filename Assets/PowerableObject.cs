@@ -61,7 +61,7 @@ public class PowerableObject : MonoBehaviour
             if (res != null)
             {
                 res.transform.GetChild(0).gameObject.SetActive(true);
-                res.transform.AddComponent<IncrementalGarbaz>();
+                //res.transform.AddComponent<IncrementalGarbaz>();
             }
         }
 
@@ -79,7 +79,7 @@ public class PowerableObject : MonoBehaviour
                 n++;
             }
 
-        gameObject.AddComponent<IncrementalGarbaz>();
+        //gameObject.AddComponent<IncrementalGarbaz>();
     }
 
     List<GameObject> cables;

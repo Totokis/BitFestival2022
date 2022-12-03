@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2915653844700027517}
   - component: {fileID: 2915653844700027516}
+  - component: {fileID: 8864324638868444534}
   m_Layer: 0
   m_Name: CurvedCable
   m_TagString: Untagged
@@ -89,3 +90,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8864324638868444534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2915653844700027458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d91ad18d9be2c2a458f3cb73e8e8031e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
