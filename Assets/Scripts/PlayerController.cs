@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public UnityEvent<int> levelChanged;
     public UnityEvent<int> upperBoundReached;
     public UnityEvent<int> lowerBoundReached;
-    
+
     private void Start()
     {
         Time.timeScale = 1f;
@@ -29,10 +29,15 @@ public class PlayerController : MonoBehaviour
 
         var playerTransform = transform;
         var playerPosition = playerTransform.position;
-        
+
         playerPosition += Vector3.right * 1 * speed * Time.deltaTime;
-        playerPosition = new Vector3(playerPosition.x, _currentLevel.Height, playerPosition.z);
-        
+        if (playerTransform.position.y != _currentLevel.Height)
+        {
+            playerPosition = Vector3.Slerp(new Vector3(playerPosition.x, playerPosition.y) ,new Vector3(playerPosition.x, _currentLevel.Height), 0.2f);
+        }
+        else
+            playerPosition = new Vector3(playerPosition.x, _currentLevel.Height, playerPosition.z);
+
         playerTransform.position = playerPosition;
     }
     private void GetKeyboardInput()

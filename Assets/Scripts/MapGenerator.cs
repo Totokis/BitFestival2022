@@ -72,6 +72,7 @@ public class MapGenerator : MonoBehaviour
         GenerateBackCity();
 
         yield return new WaitForSeconds(_generationsCount > 3 ? 2.5f : 0f);
+        //yield return new WaitForSeconds(0.1f);
 
         StartCoroutine(MapGeneratorCor());
         StartCoroutine(FeatureGeneration());
@@ -82,8 +83,8 @@ public class MapGenerator : MonoBehaviour
         if(_nextPowerableX < _lastGroundX)
         {
             SpawnPowerable();
-            _nextPowerableX += Random.Range(5f, 12f);
-            Single thingX = _nextPowerableX + Random.Range(1.1f, 4.20f) * (Random.value > 0.5f ? 1f : -1f);
+            _nextPowerableX += Random.Range(4.5f, 8.6f);
+            Single thingX = _nextPowerableX + Random.Range(1.1f, 4f) * (Random.value > 0.5f ? 1f : -1f);
             SpawnThing(thingX);
         }
 
