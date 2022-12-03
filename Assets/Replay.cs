@@ -11,10 +11,6 @@ public class Replay : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void Start()
-    {
-        Destroy(FindObjectOfType<PlayerController>()); 
-    }
     void Update() {
         if (Input.GetKeyDown(KeyCode.Return)) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
