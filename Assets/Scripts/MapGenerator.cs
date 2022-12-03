@@ -8,23 +8,28 @@ using Random = UnityEngine.Random;
 public class MapGenerator : MonoBehaviour
 {
     private const Single SKY_Y = 0.61f;
+    private const Single BACK_CITY_Y = 2.39f;
     private const Single UNDERGOUND_Y = -2.87f;
 
     private List<Single> _activeLevels = new List<Single>();
 
     public Transform trMapParent;
     public Transform trCables;
+    public Transform trFrontCity;
 
     public GameObject objGroundPrefab;
     public GameObject objSkyPrefab;
+    public GameObject objBackCityPrefab;
     public GameObject objCablePrefab;
     public GameObject objCurvedCable;
     public PowerableActivationNode objPowerableActivationNodePrefab;
     public List<PowerableObject> _powerableObjects = new List<PowerableObject>();
     public List<GameObject> _things = new List<GameObject>();
+    public List<GameObject> _frontCityBuildings = new List<GameObject>();
 
     private Single _lastGroundX = 0;
     private Single _lastSkyX = 0;
+    private Single _lastBackCityX = 0;
     private Single _thisSegmentCableX = -8.19f;
 
     [HideInInspector] public List<GameObject> GeneratedUnderGrounds = new List<GameObject>();
@@ -34,6 +39,7 @@ public class MapGenerator : MonoBehaviour
 
     Single oneUndergroundBackgroundWidth;
     Single _nextPowerableX = 20f;
+    Single _nextFrontBuildingX = -20f;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +69,7 @@ public class MapGenerator : MonoBehaviour
         thisGenerationSegmentStartXBefore -= (totalUndergroundSegmentWidth / 2f);
         GenerateSkyBackgrounds();
         GenerateCables();
+        GenerateBackCity();
 
         yield return new WaitForSeconds(_generationsCount > 3 ? 2.5f : 0f);
 
@@ -78,6 +85,14 @@ public class MapGenerator : MonoBehaviour
             _nextPowerableX += Random.Range(5f, 12f);
             Single thingX = _nextPowerableX + Random.Range(1.1f, 4.20f) * (Random.value > 0.5f ? 1f : -1f);
             SpawnThing(thingX);
+        }
+
+        if(_nextFrontBuildingX < _lastGroundX)
+        {
+            //2.631f
+            GameObject frontBuilding = Instantiate(_frontCityBuildings[Random.Range(0, _frontCityBuildings.Count)], trFrontCity);
+            frontBuilding.transform.localPosition = new Vector3(_nextFrontBuildingX, 2.631f);
+            _nextFrontBuildingX += Random.Range(1f, 4f);
         }
 
         yield return new WaitForSeconds(_generationsCount > 3 ? 0.1f : 0f);
@@ -100,6 +115,17 @@ public class MapGenerator : MonoBehaviour
         _lastSkyX += totalSegmentWidth;
 
         GeneratedSkies.Add(newSky);
+    }
+
+    Single spawnedBCS = 0f;
+    private void GenerateBackCity()
+    {
+        GameObject newbackcity = Instantiate(objBackCityPrefab, trMapParent);
+        newbackcity.transform.localPosition = new Vector3(_lastBackCityX, BACK_CITY_Y, 0);
+        Single totalSegmentWidth = newbackcity.GetComponent<RectTransform>().sizeDelta.x;
+        newbackcity.GetComponent<Parallax>().offset = totalSegmentWidth * spawnedBCS;
+        _lastBackCityX += totalSegmentWidth;
+        spawnedBCS++;
     }
 
     private void SpawnPowerable()

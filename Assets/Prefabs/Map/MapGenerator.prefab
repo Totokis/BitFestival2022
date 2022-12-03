@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4404303755759188872
 MonoBehaviour:
@@ -45,5 +45,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trMapParent: {fileID: 0}
+  trCables: {fileID: 0}
+  trFrontCity: {fileID: 0}
   objGroundPrefab: {fileID: 6713740132895041404, guid: 999e82b312867a64f9c9ac2c62e25bde, type: 3}
+  objSkyPrefab: {fileID: 6713740132895041404, guid: c2607da377a40364093be7e63615231d, type: 3}
+  objBackCityPrefab: {fileID: 6713740132895041404, guid: 2477b1bc959784a4193a3093a57a6de2, type: 3}
   objCablePrefab: {fileID: 2915653844700027458, guid: a5402303afdb7244b8cfdc67b155aebb, type: 3}
+  objCurvedCable: {fileID: 2915653844700027458, guid: f72d86ff18adae549babce925f9414bf, type: 3}
+  objPowerableActivationNodePrefab: {fileID: 4367017107687196995, guid: d446a4c019dff7b4a9f972929713d644, type: 3}
+  _powerableObjects:
+  - {fileID: 735230299300945633, guid: 31e4e5cb12ae9cf4b90cc2102a50d3b1, type: 3}
+  _things:
+  - {fileID: 4490106476551705530, guid: b7962b8b5d43f6247ad0a8265a0046ce, type: 3}
+  - {fileID: 4490106476551705530, guid: 28b7349a1f2a68c438ef0bb489b76bc0, type: 3}
+  _frontCityBuildings:
+  - {fileID: 6014904858925259264, guid: 6ba92f962ab7b49418a85195bc2beb9b, type: 3}
+  - {fileID: 5808333327942942967, guid: 6213dda0b17eeca42952ad2da071258f, type: 3}
+  - {fileID: 5808333327942942967, guid: bf487c2b1af9b914a8016e9e5b21fbe5, type: 3}
+  - {fileID: 5808333327942942967, guid: 37c88d39a6dc01c408ea1cd9ae19bac2, type: 3}
+  - {fileID: 5808333327942942967, guid: 34a3f201a3be6264897f9670c98d5bac, type: 3}
+  - {fileID: 5808333327942942967, guid: 903f2dc9c6287a8428317b6c5b0c597a, type: 3}
+  - {fileID: 5808333327942942967, guid: 307fae6a0de5e61448b657f948d931fc, type: 3}
+  - {fileID: 5808333327942942967, guid: 1d2cfe930cbd80745a64cd2b1d127fce, type: 3}
+  - {fileID: 5808333327942942967, guid: 99b0cb1f036d67a4f9bc9f01770e3257, type: 3}
+  - {fileID: 5808333327942942967, guid: 277bfb0eb9bd42e4b9216bd6f67e3782, type: 3}
+  - {fileID: 5808333327942942967, guid: e41156639b1ac4a4790a60d4761d8614, type: 3}
+  - {fileID: 5808333327942942967, guid: f7ea15992f3114d499ea062ec6ca7a4a, type: 3}
+  - {fileID: 5808333327942942967, guid: 763c5653ccc99a94cb2208c73d615f1a, type: 3}
+  - {fileID: 5808333327942942967, guid: 55bc538ba75b9cd4798ebaa306189ccb, type: 3}
+  - {fileID: 5808333327942942967, guid: b8351f44259acd64ebd363cd1b64f813, type: 3}
+  - {fileID: 5808333327942942967, guid: cebc2ae936b87e84ba1e05b82dc628f2, type: 3}
+  - {fileID: 5808333327942942967, guid: 36446727e7f3bd944ab0526dab5aa5e4, type: 3}
+  - {fileID: 5808333327942942967, guid: f2524198775a7c94d9ea50565f941498, type: 3}
+  - {fileID: 5808333327942942967, guid: e72f606c6301775408fb60e2beaa85ea, type: 3}
+  - {fileID: 5808333327942942967, guid: c675db2330819ce4ea2faa6d5442aa58, type: 3}
+  GeneratedUnderGrounds: []
+  GeneratedSkies: []
+  GeneratedCables: []
+  GeneratedPowerables: []

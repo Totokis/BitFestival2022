@@ -7,7 +7,7 @@ public class EnergyController : MonoBehaviour
 {
     public const Single GAME_OVER_ENERGY = 0f;
 
-    public Single CurrentEnergy = 50f;
+    public Single CurrentEnergy = 400f;
 
     public GameOver GO;
 
