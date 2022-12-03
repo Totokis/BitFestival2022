@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator DifficultyIncreaser()
     {
         yield return new WaitForSeconds(1f);
-        speed += 0.08f;
+        speed += 0.057f;
         StartCoroutine(DifficultyIncreaser());
     }
 

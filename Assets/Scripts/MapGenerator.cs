@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
@@ -82,7 +83,7 @@ public class MapGenerator : MonoBehaviour
 
     private IEnumerator FeatureGeneration()
     {
-        if(_nextPowerableX < _lastGroundX)
+        if (_nextPowerableX < _lastGroundX)
         {
             SpawnPowerable();
             _nextPowerableX += Random.Range(4.5f, 8.6f);
@@ -90,7 +91,7 @@ public class MapGenerator : MonoBehaviour
             SpawnThing(thingX);
         }
 
-        if(_nextFrontBuildingX < _lastGroundX)
+        if (_nextFrontBuildingX < _lastGroundX)
         {
             //2.631f
             GameObject frontBuilding = Instantiate(_frontCityBuildings[Random.Range(0, _frontCityBuildings.Count)], trFrontCity);
@@ -139,19 +140,22 @@ public class MapGenerator : MonoBehaviour
 
         Single curvedCableHeight = 0.1398601f;
 
-        PowerableActivationNode[] nodes = new PowerableActivationNode[1];
-        for (Int32 n = 0; n < 1; n++)
+        Int32 powerableNodesCount = Random.Range(1, 3);
+        PowerableActivationNode[] nodes = new PowerableActivationNode[powerableNodesCount];
+        Vector3 curvedCableStart = new Vector3(powerable.transform.localPosition.x, 0.84f);
+        List<GameObject> thisCables = new List<GameObject>();
+        Single leftRightOffset = 2f;
+
+        if (powerableNodesCount == 1)
         {
+
             PowerableActivationNode newNode = Instantiate(objPowerableActivationNodePrefab, trMapParent);
             StartCoroutine(Namer(powerable, newNode));
             Single level = PickRandomActiveLevel();
             newNode.transform.localPosition = new Vector3(_nextPowerableX, level);
 
-            Vector3 curvedCableStart = new Vector3(powerable.transform.localPosition.x, 0.84f);
-
             Single cableToGen = Mathf.Abs(newNode.transform.localPosition.y - powerable.transform.localPosition.y + (powerable.GetComponent<RectTransform>().sizeDelta.y / 2f));
-            List<GameObject> thisCables = new List<GameObject>();
-            for(Single cableGenerated = 0f; cableGenerated < cableToGen;cableGenerated += curvedCableHeight)
+            for (Single cableGenerated = 0f; cableGenerated < cableToGen; cableGenerated += curvedCableHeight)
             {
                 GameObject cableNew = Instantiate(objCurvedCable, trCables);
                 cableNew.transform.localPosition = curvedCableStart;
@@ -159,10 +163,105 @@ public class MapGenerator : MonoBehaviour
                 thisCables.Add(cableNew);
             }
 
-            powerable.AttachCables(thisCables);
-
-            nodes[n] = newNode;
+            nodes[0] = newNode;
         }
+        else
+        {
+            Int32 leftOffset = Random.Range(-1, 1);
+            Int32 rightOffset = 1;
+            if (leftOffset == -1)
+                rightOffset = leftOffset + Random.Range(1, 3);
+            else if (leftOffset == 0)
+                rightOffset = leftOffset + 1;
+
+            Single leftLevel = PickRandomActiveLevel();
+            Single rightLevel = PickRandomActiveLevel();
+
+            //leftLevel = -3.5f;
+            //rightLevel = -3.5f;
+
+            PowerableActivationNode leftNode = Instantiate(objPowerableActivationNodePrefab, trMapParent);
+            StartCoroutine(Namer(powerable, leftNode));
+            leftNode.transform.localPosition = new Vector3(_nextPowerableX + (leftOffset * leftRightOffset), leftLevel);
+
+            PowerableActivationNode rightNode = Instantiate(objPowerableActivationNodePrefab, trMapParent);
+            StartCoroutine(Namer(powerable, rightNode));
+            rightNode.transform.localPosition = new Vector3(_nextPowerableX + (rightOffset * leftRightOffset), rightLevel);
+
+            Single higherCableLevel = MathF.Max(leftLevel, rightLevel);
+            Single cableSplitLevel = Mathf.Clamp(higherCableLevel + ((Single)(Random.Range(0, 3)) * 1.5f), -3.5f, -0.5f)
+                 + 0.75f;//bo troche nad poziomem jest split
+
+            Single cableToGen = Mathf.Abs((cableSplitLevel) - powerable.transform.localPosition.y + (powerable.GetComponent<RectTransform>().sizeDelta.y / 2f));
+            for (Single cableGenerated = 0f; cableGenerated < cableToGen; cableGenerated += curvedCableHeight)
+            {
+                GameObject cableNew = Instantiate(objCurvedCable, trCables);
+                cableNew.transform.localPosition = curvedCableStart;
+                curvedCableStart = new Vector3(curvedCableStart.x, curvedCableStart.y - curvedCableHeight);
+                thisCables.Add(cableNew);
+            }
+
+            {//left cable
+                //do boku jak istnieje
+                if (leftOffset != 0)//ze split pointa do boku
+                {
+                    cableToGen = leftRightOffset;
+                    curvedCableStart = new Vector3(leftRightOffset * leftOffset + powerable.transform.localPosition.x, cableSplitLevel);
+                    for (Single cableGenerated = 0f; cableGenerated < cableToGen; cableGenerated += curvedCableHeight)
+                    {
+                        GameObject cableNew = Instantiate(objCurvedCable, trCables);
+                        cableNew.transform.localPosition = curvedCableStart;
+                        curvedCableStart = new Vector3(curvedCableStart.x + curvedCableHeight, curvedCableStart.y);
+                        thisCables.Add(cableNew);
+                    }
+                }
+
+                //from split level to node do do³u
+                Single undergroundCableStart = cableSplitLevel;
+                cableToGen = Mathf.Abs(cableSplitLevel - leftNode.transform.localPosition.y);
+                curvedCableStart = new Vector3(powerable.transform.localPosition.x + (leftOffset * leftRightOffset), undergroundCableStart);
+                for (Single cableGenerated = 0f; cableGenerated < cableToGen; cableGenerated += curvedCableHeight)
+                {
+                    GameObject cableNew = Instantiate(objCurvedCable, trCables);
+                    cableNew.transform.localPosition = curvedCableStart;
+                    curvedCableStart = new Vector3(curvedCableStart.x, curvedCableStart.y - curvedCableHeight);
+                    thisCables.Add(cableNew);
+                }
+            }
+
+            {//right cable
+                //do boku jak istnieje
+                if (rightOffset != 0)//ze split pointa do boku
+                {
+                    cableToGen = leftRightOffset;
+                    curvedCableStart = new Vector3(leftRightOffset * rightOffset + powerable.transform.localPosition.x, cableSplitLevel);
+                    for (Single cableGenerated = 0f; cableGenerated < cableToGen; cableGenerated += curvedCableHeight)
+                    {
+                        GameObject cableNew = Instantiate(objCurvedCable, trCables);
+                        cableNew.transform.localPosition = curvedCableStart;
+                        curvedCableStart = new Vector3(curvedCableStart.x - curvedCableHeight, curvedCableStart.y);
+                        thisCables.Add(cableNew);
+                    }
+                }
+
+                //from split level to node do do³u
+                Single undergroundCableStart = cableSplitLevel;
+                cableToGen = Mathf.Abs(cableSplitLevel - rightNode.transform.localPosition.y);
+                curvedCableStart = new Vector3(powerable.transform.localPosition.x + (rightOffset * leftRightOffset), undergroundCableStart);
+                for (Single cableGenerated = 0f; cableGenerated < cableToGen; cableGenerated += curvedCableHeight)
+                {
+                    GameObject cableNew = Instantiate(objCurvedCable, trCables);
+                    cableNew.transform.localPosition = curvedCableStart;
+                    curvedCableStart = new Vector3(curvedCableStart.x, curvedCableStart.y - curvedCableHeight);
+                    thisCables.Add(cableNew);
+                }
+            }
+
+            nodes[0] = leftNode;
+            nodes[1] = rightNode;
+        }
+
+        powerable.AttachCables(thisCables);
 
         powerable.AttachPowerableActivationNodes(nodes);
 
