@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 
 public class PowerableObject : MonoBehaviour
@@ -15,6 +16,8 @@ public class PowerableObject : MonoBehaviour
     public Single PositionY;
 
     public PowerableActivationNode[] ActivationNodes;
+
+    public UnityEvent onPower;
 
     internal void AttachPowerableActivationNodes(PowerableActivationNode[] nodes)
     {
@@ -47,6 +50,7 @@ public class PowerableObject : MonoBehaviour
 
     private void PerformActivation()
     {
+        onPower.Invoke();
         GetComponent<SpriteRenderer>().sprite = sprActive;
         light.gameObject.SetActive(true);
 
