@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PowerableObject : MonoBehaviour
 {
     public Sprite sprActive;
+    public Light2D light;
 
     static int powerables = 0;
     public Single PositionY;
@@ -18,7 +20,10 @@ public class PowerableObject : MonoBehaviour
         ActivationNodes = nodes;
     }
 
-    // Start is called before the first frame update
+    private void Awake()
+    { 
+        light.gameObject.SetActive(false);
+    }
     void Start()
     {
         powerables++;
@@ -42,6 +47,6 @@ public class PowerableObject : MonoBehaviour
     private void PerformActivation()
     {
         GetComponent<SpriteRenderer>().sprite = sprActive;
-
+        light.gameObject.SetActive(true);
     }
 }

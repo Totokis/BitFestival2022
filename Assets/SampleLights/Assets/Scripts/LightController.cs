@@ -12,6 +12,7 @@ public class LightController : MonoBehaviour
     void Start()
     {
         //DOVirtual.Float(0, explosionLightIntensity, .05f, ChangeLight).OnComplete(() => DOVirtual.Float(explosionLightIntensity, 0, .1f, ChangeLight));
+        ChangeLight(explosionLightIntensity);
     }
 
     void ChangeLight(float x)
