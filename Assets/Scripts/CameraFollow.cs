@@ -12,6 +12,8 @@ public class CameraFollow : MonoBehaviour
         desiredPosition.y = 0f;
         /*Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);*/
         transform.position = desiredPosition;
+
+        //print(Camera.main.orthographicSize);
     }
 }
 

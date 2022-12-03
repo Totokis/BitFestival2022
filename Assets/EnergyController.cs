@@ -13,6 +13,7 @@ public class EnergyController : MonoBehaviour
 
     public GameOver GO;
     public ParticleSystem pssparks;
+    public ParticleSystem redSparks;
 
     private Vector3 _initialScale;
     void Start()
@@ -21,18 +22,41 @@ public class EnergyController : MonoBehaviour
         CurrentEnergy = 74;
         if (FindObjectOfType<GameOver>())
             GO = FindObjectOfType<GameOver>();
+
+        redSparks.Stop();
     }
 
-    public void ChangeEnergy(Single change)
+    public void ChangeEnergy(Boolean isBura, Single change)
     {
-        //if(change < 0)
-        //{
-        //    LeanTween.value()
-        //}
+        if (isBura && change < 0)
+        {
+            print("BURA " + change);
+
+            LeanTween.value(4.8f, 5f, 0.13f)
+                .setLoopPingPong(1)
+                .setEaseInElastic()
+                //.setEaseShake()
+                .setOnUpdate((Single val) =>
+                {
+                    Camera.main.orthographicSize = val;
+                    //Camera.main.
+                });
+
+            StartCoroutine(Damage());
+        }
 
         CurrentEnergy += change;
         CurrentEnergy = Mathf.Clamp(CurrentEnergy, Single.MinValue, MAX_ENERGY);
         print("Current energy " + CurrentEnergy);
+    }
+
+    private IEnumerator Damage()
+    {
+        pssparks.Stop();
+        redSparks.Play();
+        yield return new WaitForSeconds(0.13f);
+        pssparks.Play();
+        redSparks.Stop();
     }
 
     Boolean yep = false;
@@ -58,12 +82,12 @@ public class EnergyController : MonoBehaviour
             if (tit.Kind == ThingKind.Resistor)
             {
                 //print("Resistor");
-                ChangeEnergy(-15f);
+                ChangeEnergy(true, -15f);
             }
             else if (tit.Kind == ThingKind.AdditionalEnergy)
             {
                 //print("Energy");
-                ChangeEnergy(20f);
+                ChangeEnergy(false, 20f);
             }
         }
     }

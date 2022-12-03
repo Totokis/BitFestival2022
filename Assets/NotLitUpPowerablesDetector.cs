@@ -22,9 +22,9 @@ public class NotLitUpPowerablesDetector : MonoBehaviour
             PowerableObject po = power.GetComponent<PowerableObject>();
             if (!po.BuraWasApplied && power.transform.position.x + 3f < transform.position.x && !po.WasActivated)
             {
-                print(power.name + " Not activated");
+                //print(power.name + " Not activated");
                 po.BuraWasApplied = true;
-                GameObject.FindObjectOfType<EnergyController>().ChangeEnergy(-25f);
+                GameObject.FindObjectOfType<EnergyController>().ChangeEnergy(true, -25f);
             }
         }
         mg.DeleteNonExistentPowerables();

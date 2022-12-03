@@ -28,7 +28,8 @@ public class PowerableActivationNode : MonoBehaviour
             LeanTween.scale(gameObject, new Vector3(1.8f, 1.81f), 0.18f)
                 .setLoopPingPong(1);
 
-            GameObject.FindObjectOfType<EnergyController>().ChangeEnergy(-5f);
+            GameObject.FindObjectOfType<EnergyController>().ChangeEnergy(false, -5f);
+            //print(collision.name);
         }
     }
 
