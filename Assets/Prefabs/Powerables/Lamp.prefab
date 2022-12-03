@@ -10,8 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4210568249880357706, guid: 8b85bc6dad78f5a43abb85fe52c89dee, type: 3}
       propertyPath: PositionY
-      value: 3.32
+      value: 2.3485
       objectReference: {fileID: 0}
+    - target: {fileID: -4210568249880357706, guid: 8b85bc6dad78f5a43abb85fe52c89dee, type: 3}
+      propertyPath: sprActive
+      value: 
+      objectReference: {fileID: 21300000, guid: dd2710f50f0688648862253f675c3b9c, type: 3}
     - target: {fileID: 173664120752453911, guid: 8b85bc6dad78f5a43abb85fe52c89dee, type: 3}
       propertyPath: m_Name
       value: Lamp
@@ -79,7 +83,7 @@ PrefabInstance:
     - target: {fileID: 7743533876406023664, guid: 8b85bc6dad78f5a43abb85fe52c89dee, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: a737305a9a71a484292a9d46931828b8, type: 3}
+      objectReference: {fileID: 21300000, guid: be8c980b834f89d40b6799944b48518b, type: 3}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b85bc6dad78f5a43abb85fe52c89dee, type: 3}

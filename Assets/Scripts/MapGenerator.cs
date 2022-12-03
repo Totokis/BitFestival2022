@@ -7,24 +7,27 @@ using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
 {
-    private const Single UNDERGOUND_Y = -2.72f;
+    private const Single SKY_Y = 0.61f;
+    private const Single UNDERGOUND_Y = -2.87f;
 
     private List<Single> _activeLevels = new List<Single>();
 
     public Transform trMapParent;
 
     public GameObject objGroundPrefab;
+    public GameObject objSkyPrefab;
     public GameObject objCablePrefab;
     public PowerableActivationNode objPowerableActivationNodePrefab;
     public List<PowerableObject> _powerableObjects = new List<PowerableObject>();
 
     private Single _lastGroundX = 0;
+    private Single _lastSkyX = 0;
     private Single _thisSegmentCableX = -8.19f;
 
-
-    private List<GameObject> _generatedUnderGrounds = new List<GameObject>();
-    private List<GameObject> _generatedCables = new List<GameObject>();
-    private List<GameObject> _generatedPowerables = new List<GameObject>();
+    [HideInInspector] public List<GameObject> GeneratedUnderGrounds = new List<GameObject>();
+    [HideInInspector] public List<GameObject> GeneratedSkies = new List<GameObject>();
+    [HideInInspector] public List<GameObject> GeneratedCables = new List<GameObject>();
+    [HideInInspector] public List<GameObject> GeneratedPowerables = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -48,12 +51,23 @@ public class MapGenerator : MonoBehaviour
         Single thisGenerationSegmentStartXBefore = _lastGroundX;
         Single totalUndergroundSegmentWidth = GenerateUndergrounds();
         thisGenerationSegmentStartXBefore -= (totalUndergroundSegmentWidth / 2f);
+        GenerateSkyBackgrounds();
         GenerateCables();
         GeneratePowerables(thisGenerationSegmentStartXBefore, totalUndergroundSegmentWidth);
 
         yield return new WaitForSeconds(_generationsCount > 3 ? 2.5f : 0f);
 
         StartCoroutine(MapGeneratorCor());
+    }
+
+    private void GenerateSkyBackgrounds()
+    {
+        GameObject newSky = Instantiate(objSkyPrefab, trMapParent);
+        newSky.transform.localPosition = new Vector3(_lastSkyX, SKY_Y, 0);
+        Single totalSegmentWidth = newSky.GetComponent<RectTransform>().sizeDelta.x;
+        _lastSkyX += totalSegmentWidth;
+
+        GeneratedSkies.Add(newSky);
     }
 
     private void GeneratePowerables(Single beforeStartX, Single totalSegmentWidth)
@@ -77,13 +91,13 @@ public class MapGenerator : MonoBehaviour
 
             powerable.AttachPowerableActivationNodes(nodes);
 
-            _generatedPowerables.Add(powerable.gameObject);
+            GeneratedPowerables.Add(powerable.gameObject);
         }
     }
 
     private void GenerateCables()
     {
-        Int32 cableSegmentsInBacgkround = 11;
+        Int32 cableSegmentsInBacgkround = 35;
         Single cableWidthTakingScale = objCablePrefab.GetComponent<RectTransform>().sizeDelta.x * objCablePrefab.transform.localScale.x;
         for (Int32 i = 0; i < cableSegmentsInBacgkround; i++)
         {
@@ -91,7 +105,7 @@ public class MapGenerator : MonoBehaviour
             {
                 GameObject cable = Instantiate(objCablePrefab, trMapParent);
                 cable.transform.localPosition = new Vector3(_thisSegmentCableX + i * cableWidthTakingScale, level, 0);
-                _generatedCables.Add(cable);
+                GeneratedCables.Add(cable);
             }
         }
 
@@ -106,7 +120,7 @@ public class MapGenerator : MonoBehaviour
         Single totalSegmentWidth = newUnderGround.GetComponent<RectTransform>().sizeDelta.x;
         _lastGroundX += totalSegmentWidth;
 
-        _generatedUnderGrounds.Add(newUnderGround);
+        GeneratedUnderGrounds.Add(newUnderGround);
 
         return totalSegmentWidth;
     }

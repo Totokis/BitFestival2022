@@ -67,32 +67,43 @@ public class PlayerController : MonoBehaviour
     }
     public void LevelChanged()
     {
-        print("Level changed");
+        //print("Level changed");
         levelChanged.Invoke(levels.IndexOf(_currentLevel));
     }
     public void UpperBoundReached()
     {
-        print("Upper bound reached");
+        //print("Upper bound reached");
         upperBoundReached.Invoke(levels.IndexOf(_currentLevel));
     }
     public void LowerBoundReached()
     {
-        print("Lower bound reached");
+        //print("Lower bound reached");
         lowerBoundReached.Invoke(levels.IndexOf(_currentLevel));
     }
 
-    private void OnDrawGizmos()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (levels != null)
-        {
-            Gizmos.color = Color.yellow;
-
-            foreach (var level in levels)
-            {
-                Gizmos.DrawLine(new Vector3(0,level.Height,0),new Vector3(1000,level.Height,0));
-            }
-        }
+        print("trig");
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        print("trig");
+
+    }
+
+    //private void OnDrawGizmos()
+    //{
+    //    if (levels != null)
+    //    {
+    //        Gizmos.color = Color.yellow;
+
+    //        foreach (var level in levels)
+    //        {
+    //            Gizmos.DrawLine(new Vector3(0,level.Height,0),new Vector3(1000,level.Height,0));
+    //        }
+    //    }
+    //}
 }
 
 [Serializable]

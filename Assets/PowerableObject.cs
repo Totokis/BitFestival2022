@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PowerableObject : MonoBehaviour
 {
+    public Sprite sprActive;
 
     static int powerables = 0;
     public Single PositionY;
@@ -40,7 +41,7 @@ public class PowerableObject : MonoBehaviour
 
     private void PerformActivation()
     {
-        GetComponent<SpriteRenderer>().color = Color.green;
+        GetComponent<SpriteRenderer>().sprite = sprActive;
 
     }
 }
