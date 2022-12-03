@@ -7,14 +7,14 @@ public class EnergyController : MonoBehaviour
 {
     public const Single GAME_OVER_ENERGY = 0f;
 
-    public Single CurrentEnergy = 400f;
+    public Single CurrentEnergy;
 
     public GameOver GO;
 
     // Start is called before the first frame update
     void Start()
     {
-        CurrentEnergy = 50f;
+        CurrentEnergy = 400f;
     
     }
 

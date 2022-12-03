@@ -146,12 +146,16 @@ public class MapGenerator : MonoBehaviour
             Vector3 curvedCableStart = new Vector3(powerable.transform.localPosition.x, 0.84f);
 
             Single cableToGen = Mathf.Abs(newNode.transform.localPosition.y - powerable.transform.localPosition.y + (powerable.GetComponent<RectTransform>().sizeDelta.y / 2f));
+            List<GameObject> thisCables = new List<GameObject>();
             for(Single cableGenerated = 0f; cableGenerated < cableToGen;cableGenerated += curvedCableHeight)
             {
                 GameObject cableNew = Instantiate(objCurvedCable, trCables);
                 cableNew.transform.localPosition = curvedCableStart;
                 curvedCableStart = new Vector3(curvedCableStart.x, curvedCableStart.y - curvedCableHeight);
+                thisCables.Add(cableNew);
             }
+
+            powerable.AttachCables(thisCables);
 
             nodes[n] = newNode;
         }
