@@ -52,7 +52,7 @@ public class PowerableObject : MonoBehaviour
     {
         onPower.Invoke();
         GetComponent<SpriteRenderer>().sprite = sprActive;
-        light.gameObject.SetActive(true);
+        Invoke(nameof(EnableLight), 0.2f);
 
         Collider2D[] results = new Collider2D[10];
         GetComponent<BoxCollider2D>().OverlapCollider(new ContactFilter2D(), results);
@@ -86,5 +86,10 @@ public class PowerableObject : MonoBehaviour
     internal void AttachCables(List<GameObject> thisCables)
     {
         cables = thisCables;
+    }
+
+    private void EnableLight()
+    {
+        light.gameObject.SetActive(true);
     }
 }

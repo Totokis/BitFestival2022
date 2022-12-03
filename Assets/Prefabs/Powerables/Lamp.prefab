@@ -192,8 +192,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0
-  m_Color: {r: 1, g: 0.69559526, b: 0, a: 1}
-  m_Intensity: 6.87
+  m_Color: {r: 1, g: 0.80810213, b: 0.3726415, a: 1}
+  m_Intensity: 0.42
   m_LightVolumeIntensity: 0.26
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000
@@ -243,8 +243,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 0
   m_PointLightOuterAngle: 180
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 0.75
+  m_PointLightInnerRadius: 2.52
+  m_PointLightOuterRadius: 2.52
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -301,7 +301,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 531423852319123311, guid: 5b8e526d000724eb6ab5e14393df5b8c, type: 3}
       propertyPath: speed
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 531423852319123311, guid: 5b8e526d000724eb6ab5e14393df5b8c, type: 3}
       propertyPath: positions.Array.size
@@ -622,7 +622,7 @@ MonoBehaviour:
   - {x: 0.1374402, y: -1.5088928, z: 0}
   m_ShapePathHash: 379398083
   m_Mesh: {fileID: 0}
-  m_InstanceId: 81768
+  m_InstanceId: 83698
 --- !u!224 &6463271196404682293 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1591803232442582114, guid: 8b85bc6dad78f5a43abb85fe52c89dee, type: 3}
