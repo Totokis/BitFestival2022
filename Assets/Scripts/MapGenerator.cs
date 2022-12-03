@@ -17,6 +17,8 @@ public class MapGenerator : MonoBehaviour
     public Transform trCables;
     public Transform trFrontCity;
 
+    public PlayerController PlayerController;
+
     public GameObject objGroundPrefab;
     public GameObject objSkyPrefab;
     public GameObject objBackCityPrefab;
@@ -71,7 +73,7 @@ public class MapGenerator : MonoBehaviour
         GenerateCables();
         GenerateBackCity();
 
-        yield return new WaitForSeconds(_generationsCount > 3 ? 2.5f : 0f);
+        yield return new WaitForSeconds(_generationsCount > 3 ? 12.5f / PlayerController.speed : 0f);
         //yield return new WaitForSeconds(0.1f);
 
         StartCoroutine(MapGeneratorCor());
@@ -141,6 +143,7 @@ public class MapGenerator : MonoBehaviour
         for (Int32 n = 0; n < 1; n++)
         {
             PowerableActivationNode newNode = Instantiate(objPowerableActivationNodePrefab, trMapParent);
+            StartCoroutine(Namer(powerable, newNode));
             Single level = PickRandomActiveLevel();
             newNode.transform.localPosition = new Vector3(_nextPowerableX, level);
 
@@ -164,6 +167,12 @@ public class MapGenerator : MonoBehaviour
         powerable.AttachPowerableActivationNodes(nodes);
 
         GeneratedPowerables.Add(powerable.gameObject);
+    }
+
+    private IEnumerator Namer(PowerableObject powerable, PowerableActivationNode newNode)
+    {
+        yield return new WaitForSeconds(1f);
+        newNode.name = $"Activator for {powerable.name}";
     }
 
     private void GenerateCables()

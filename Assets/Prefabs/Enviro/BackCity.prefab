@@ -102,4 +102,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b8b99a813643c47bfae4e658727f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objRefCamera: {fileID: 0}
+  offset: 0
+  factor: 3.5

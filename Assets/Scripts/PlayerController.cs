@@ -20,8 +20,16 @@ public class PlayerController : MonoBehaviour
     {
         Time.timeScale = 1f;
         _currentLevel = levels[startLevel];
+        StartCoroutine(DifficultyIncreaser());
     }
+
     public float speed = 5.0f;
+    private IEnumerator DifficultyIncreaser()
+    {
+        yield return new WaitForSeconds(1f);
+        speed += 0.08f;
+        StartCoroutine(DifficultyIncreaser());
+    }
 
     void Update()
     {

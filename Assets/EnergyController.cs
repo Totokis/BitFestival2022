@@ -15,7 +15,7 @@ public class EnergyController : MonoBehaviour
     void Start()
     {
         CurrentEnergy = 10000;
-    
+
     }
 
     public void ChangeEnergy(Single change)
@@ -27,7 +27,7 @@ public class EnergyController : MonoBehaviour
     Boolean yep = false;
     void Update()
     {
-        if(!yep && CurrentEnergy <= GAME_OVER_ENERGY)
+        if (!yep && CurrentEnergy <= GAME_OVER_ENERGY)
         {
             yep = true;
             GO.Show();
@@ -37,9 +37,10 @@ public class EnergyController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ThingToInteract tit = collision.GetComponent<ThingToInteract>();
-        if(tit)
+        if (tit)
         {
-            if(tit.Kind == ThingKind.Resistor)
+            tit.Collided();
+            if (tit.Kind == ThingKind.Resistor)
             {
                 print("Resistor");
                 ChangeEnergy(-50f);
