@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class EnergyController : MonoBehaviour
 {
+    public ParticleSystem EnergyIndicator;
     public const Single GAME_OVER_ENERGY = 0f;
 
     public Single CurrentEnergy;
@@ -18,6 +19,7 @@ public class EnergyController : MonoBehaviour
     private Vector3 _initialScale;
     void Start()
     {
+        EnergyIndicator.Stop();
         _initialScale = pssparks.transform.localScale;
         CurrentEnergy = 74;
         if (FindObjectOfType<GameOver>())
@@ -48,6 +50,12 @@ public class EnergyController : MonoBehaviour
         CurrentEnergy += change;
         CurrentEnergy = Mathf.Clamp(CurrentEnergy, Single.MinValue, MAX_ENERGY);
         print("Current energy " + CurrentEnergy);
+
+        if (change > 0)
+        {
+            EnergyIndicator.Play();
+            EnergyIndicator.Stop();
+        }
     }
 
     private IEnumerator Damage()

@@ -486,6 +486,18 @@ PrefabInstance:
       propertyPath: GO
       value: 
       objectReference: {fileID: 246946098}
+    - target: {fileID: 5788309069672995260, guid: 63c694b04de2ef3469deb1f841c772dc, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5788309069672995260, guid: 63c694b04de2ef3469deb1f841c772dc, type: 3}
+      propertyPath: autoRandomSeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5788309069672995262, guid: 63c694b04de2ef3469deb1f841c772dc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 63c694b04de2ef3469deb1f841c772dc, type: 3}
