@@ -48,5 +48,15 @@ public class PowerableObject : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().sprite = sprActive;
         light.gameObject.SetActive(true);
+
+        Collider2D[] results = new Collider2D[10];
+        GetComponent<BoxCollider2D>().OverlapCollider(new ContactFilter2D(), results);
+        foreach(var res in results)
+        {
+            if(res != null)
+            {
+                res.transform.GetChild(0).gameObject.SetActive(true);
+            }
+        }
     }
 }
