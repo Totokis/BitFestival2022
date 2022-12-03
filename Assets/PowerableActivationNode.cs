@@ -15,13 +15,12 @@ public class PowerableActivationNode : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         print("trig");
-        IsActivated = true;
-        GetComponent<SpriteRenderer>().color = Color.green;
+        if (!IsActivated)
+        {
+            IsActivated = true;
+            GetComponent<SpriteRenderer>().color = Color.green;
+            GameObject.FindObjectOfType<EnergyController>().ChangeEnergy(-5f);
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        print("trig");
-
-    }
 }

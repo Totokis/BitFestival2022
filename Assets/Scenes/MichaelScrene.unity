@@ -784,12 +784,16 @@ PrefabInstance:
       objectReference: {fileID: 6713740132895041404, guid: c2607da377a40364093be7e63615231d, type: 3}
     - target: {fileID: 4404303755759188872, guid: a209ba048f8ad1346a4389795b44ac29, type: 3}
       propertyPath: _things.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4404303755759188872, guid: a209ba048f8ad1346a4389795b44ac29, type: 3}
       propertyPath: _things.Array.data[0]
       value: 
       objectReference: {fileID: 4490106476551705530, guid: b7962b8b5d43f6247ad0a8265a0046ce, type: 3}
+    - target: {fileID: 4404303755759188872, guid: a209ba048f8ad1346a4389795b44ac29, type: 3}
+      propertyPath: _things.Array.data[1]
+      value: 
+      objectReference: {fileID: 4490106476551705530, guid: 28b7349a1f2a68c438ef0bb489b76bc0, type: 3}
     - target: {fileID: 4404303755759188872, guid: a209ba048f8ad1346a4389795b44ac29, type: 3}
       propertyPath: _powerableObjects.Array.size
       value: 1

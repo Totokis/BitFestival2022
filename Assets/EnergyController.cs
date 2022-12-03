@@ -18,6 +18,12 @@ public class EnergyController : MonoBehaviour
     
     }
 
+    public void ChangeEnergy(Single change)
+    {
+        CurrentEnergy += change;
+        print("Current energy " + CurrentEnergy);
+    }
+
     Boolean yep = false;
     void Update()
     {
@@ -36,7 +42,12 @@ public class EnergyController : MonoBehaviour
             if(tit.Kind == ThingKind.Resistor)
             {
                 print("Resistor");
-                CurrentEnergy -= 50f;
+                ChangeEnergy(-50f);
+            }
+            else if (tit.Kind == ThingKind.AdditionalEnergy)
+            {
+                print("Energy");
+                ChangeEnergy(10f);
             }
         }
     }

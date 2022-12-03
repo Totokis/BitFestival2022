@@ -82,6 +82,7 @@ public class MapGenerator : MonoBehaviour
         if (_nextThingX < _lastGroundX)
         {
             SpawnThing();
+            _nextThingX = Single.MaxValue;
         }
 
         yield return new WaitForSeconds(_generationsCount > 3 ? 0.1f : 0f);
@@ -91,7 +92,7 @@ public class MapGenerator : MonoBehaviour
 
     private void SpawnThing()
     {
-        GameObject thing = Instantiate(_things[0], trMapParent);
+        GameObject thing = Instantiate(_things[Random.Range(0, _things.Count)], trMapParent);
         thing.transform.localPosition = new Vector3(_nextThingX,
             PickRandomActiveLevel(), 0f);
     }
