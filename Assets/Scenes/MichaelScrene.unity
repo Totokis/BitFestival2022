@@ -154,6 +154,17 @@ Transform:
   m_Father: {fileID: 1666222441}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &246946098 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1410245360232468511, guid: 641d1463032234440be9be0e6b4353b0, type: 3}
+  m_PrefabInstance: {fileID: 509385750}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721754ff5b7d29147b4c92a5b5647252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &414203294
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,6 +434,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1360770177, guid: 63c694b04de2ef3469deb1f841c772dc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1360770177, guid: 63c694b04de2ef3469deb1f841c772dc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1391206528238958104, guid: 63c694b04de2ef3469deb1f841c772dc, type: 3}
       propertyPath: m_Name
       value: Player
@@ -471,6 +490,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4010818828638540665, guid: 63c694b04de2ef3469deb1f841c772dc, type: 3}
+      propertyPath: GO
+      value: 
+      objectReference: {fileID: 246946098}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 63c694b04de2ef3469deb1f841c772dc, type: 3}
@@ -656,10 +679,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 396052396, guid: bfc49c7113b5c5443be9c6d870caf8ef, type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 9044772277291641700, guid: bfc49c7113b5c5443be9c6d870caf8ef, type: 3}
       propertyPath: m_Name
       value: Main Camera

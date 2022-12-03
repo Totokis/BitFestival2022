@@ -35,6 +35,9 @@ public class PowerableObject : MonoBehaviour
     }
 
     Boolean _performedActivation = false;
+
+    public Boolean WasActivated = false;
+    public Boolean AllActivated() => ActivationNodes != null && ActivationNodes.Length > 0 && ActivationNodes.All(an => an.IsActivated);
     void Update()
     {
         if (!_performedActivation && ActivationNodes != null && ActivationNodes.Length > 0)
@@ -50,6 +53,9 @@ public class PowerableObject : MonoBehaviour
 
     private void PerformActivation()
     {
+        print("Activated " + name);
+
+        WasActivated = true;
         onPower.Invoke();
         GetComponent<SpriteRenderer>().sprite = sprActive;
         Invoke(nameof(EnableLight), 0.2f);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 public class EnergyController : MonoBehaviour
@@ -8,19 +9,24 @@ public class EnergyController : MonoBehaviour
     public const Single GAME_OVER_ENERGY = 0f;
 
     public Single CurrentEnergy;
+    public const Single MAX_ENERGY = 100f;
 
     public GameOver GO;
+    public ParticleSystem pssparks;
 
-    // Start is called before the first frame update
+    private Vector3 _initialScale;
     void Start()
     {
-        CurrentEnergy = 10000;
-
+        _initialScale = pssparks.transform.localScale;
+        CurrentEnergy = 74;
+        if (FindObjectOfType<GameOver>())
+            GO = FindObjectOfType<GameOver>();
     }
 
     public void ChangeEnergy(Single change)
     {
         CurrentEnergy += change;
+        CurrentEnergy = Mathf.Clamp(CurrentEnergy, Single.MinValue, MAX_ENERGY);
         print("Current energy " + CurrentEnergy);
     }
 
@@ -32,6 +38,10 @@ public class EnergyController : MonoBehaviour
             yep = true;
             GO.Show();
         }
+        Single scaleFactor = Mathf.Clamp01(CurrentEnergy / MAX_ENERGY * 2f);
+
+        pssparks.transform.localScale = _initialScale * scaleFactor;
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -42,13 +52,13 @@ public class EnergyController : MonoBehaviour
             tit.Collided();
             if (tit.Kind == ThingKind.Resistor)
             {
-                print("Resistor");
-                ChangeEnergy(-50f);
+                //print("Resistor");
+                ChangeEnergy(-15f);
             }
             else if (tit.Kind == ThingKind.AdditionalEnergy)
             {
-                print("Energy");
-                ChangeEnergy(10f);
+                //print("Energy");
+                ChangeEnergy(20f);
             }
         }
     }

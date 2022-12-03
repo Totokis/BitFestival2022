@@ -15,7 +15,10 @@ public class PowerableActivationNode : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("trig");
+        if (LayerMask.LayerToName(collision.gameObject.layer) == "Detector")
+            return;
+
+        //print("trig");
         if (!IsActivated)
         {
             IsActivated = true;
