@@ -783,6 +783,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6713740132895041404, guid: c2607da377a40364093be7e63615231d, type: 3}
     - target: {fileID: 4404303755759188872, guid: a209ba048f8ad1346a4389795b44ac29, type: 3}
+      propertyPath: objCurvedCable
+      value: 
+      objectReference: {fileID: 2915653844700027458, guid: f72d86ff18adae549babce925f9414bf, type: 3}
+    - target: {fileID: 4404303755759188872, guid: a209ba048f8ad1346a4389795b44ac29, type: 3}
       propertyPath: _things.Array.size
       value: 2
       objectReference: {fileID: 0}

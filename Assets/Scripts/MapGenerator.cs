@@ -18,6 +18,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject objGroundPrefab;
     public GameObject objSkyPrefab;
     public GameObject objCablePrefab;
+    public GameObject objCurvedCable;
     public PowerableActivationNode objPowerableActivationNodePrefab;
     public List<PowerableObject> _powerableObjects = new List<PowerableObject>();
     public List<GameObject> _things = new List<GameObject>();
@@ -33,7 +34,6 @@ public class MapGenerator : MonoBehaviour
 
     Single oneUndergroundBackgroundWidth;
     Single _nextPowerableX = 20f;
-    Single _nextThingX = 24f;
 
     // Start is called before the first frame update
     void Start()
@@ -75,14 +75,9 @@ public class MapGenerator : MonoBehaviour
         if(_nextPowerableX < _lastGroundX)
         {
             SpawnPowerable();
-            _nextPowerableX += Random.Range(6f, 12f);
-            _nextThingX = _nextPowerableX + Random.Range(1.5f, 3f) * (Random.value > 0.5f ? 1f : -1f);
-        }
-
-        if (_nextThingX < _lastGroundX)
-        {
-            SpawnThing();
-            _nextThingX = Single.MaxValue;
+            _nextPowerableX += Random.Range(5f, 12f);
+            Single thingX = _nextPowerableX + Random.Range(1.1f, 4.20f) * (Random.value > 0.5f ? 1f : -1f);
+            SpawnThing(thingX);
         }
 
         yield return new WaitForSeconds(_generationsCount > 3 ? 0.1f : 0f);
@@ -90,10 +85,10 @@ public class MapGenerator : MonoBehaviour
         StartCoroutine(FeatureGeneration());
     }
 
-    private void SpawnThing()
+    private void SpawnThing(Single x)
     {
         GameObject thing = Instantiate(_things[Random.Range(0, _things.Count)], trMapParent);
-        thing.transform.localPosition = new Vector3(_nextThingX,
+        thing.transform.localPosition = new Vector3(x,
             PickRandomActiveLevel(), 0f);
     }
 
@@ -113,11 +108,25 @@ public class MapGenerator : MonoBehaviour
         powerable.transform.localPosition = new Vector3(_nextPowerableX,
             powerable.PositionY, 0f);
 
+        Single curvedCableHeight = 0.1398601f;
+
         PowerableActivationNode[] nodes = new PowerableActivationNode[1];
         for (Int32 n = 0; n < 1; n++)
         {
             PowerableActivationNode newNode = Instantiate(objPowerableActivationNodePrefab, trMapParent);
-            newNode.transform.localPosition = new Vector3(_nextPowerableX, PickRandomActiveLevel());
+            Single level = PickRandomActiveLevel();
+            newNode.transform.localPosition = new Vector3(_nextPowerableX, level);
+
+            Vector3 curvedCableStart = new Vector3(powerable.transform.localPosition.x, 0.84f);
+
+            Single cableToGen = Mathf.Abs(newNode.transform.localPosition.y - powerable.transform.localPosition.y + (powerable.GetComponent<RectTransform>().sizeDelta.y / 2f));
+            for(Single cableGenerated = 0f; cableGenerated < cableToGen;cableGenerated += curvedCableHeight)
+            {
+                GameObject cableNew = Instantiate(objCurvedCable, trCables);
+                cableNew.transform.localPosition = curvedCableStart;
+                curvedCableStart = new Vector3(curvedCableStart.x, curvedCableStart.y - curvedCableHeight);
+            }
+
             nodes[n] = newNode;
         }
 
