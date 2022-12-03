@@ -147,9 +147,11 @@ public class MapGenerator : MonoBehaviour
         List<GameObject> thisCables = new List<GameObject>();
         Single leftRightOffset = 2f;
 
+        Vector3 rightKolanko = default;
+        Vector3 leftKolanko = default;
         if (powerableNodesCount == 1)
         {
-
+            
             PowerableActivationNode newNode = Instantiate(objPowerableActivationNodePrefab, trMapParent);
             StartCoroutine(Namer(powerable, newNode));
             Single level = PickRandomActiveLevel();
@@ -163,8 +165,11 @@ public class MapGenerator : MonoBehaviour
                 curvedCableStart = new Vector3(curvedCableStart.x, curvedCableStart.y - curvedCableHeight);
                 thisCables.Add(cableNew);
             }
-
+             
             nodes[0] = newNode;
+            
+            
+            
         }
         else
         {
@@ -217,10 +222,11 @@ public class MapGenerator : MonoBehaviour
                     }
                 }
 
-                //from split level to node do do³u
+                //from split level to node do doï¿½u
                 Single undergroundCableStart = cableSplitLevel;
                 cableToGen = Mathf.Abs(cableSplitLevel - leftNode.transform.localPosition.y);
                 curvedCableStart = new Vector3(powerable.transform.localPosition.x + (leftOffset * leftRightOffset), undergroundCableStart);
+                leftKolanko = curvedCableStart;
                 for (Single cableGenerated = 0f; cableGenerated < cableToGen; cableGenerated += curvedCableHeight)
                 {
                     GameObject cableNew = Instantiate(objCurvedCable, trCables);
@@ -245,10 +251,11 @@ public class MapGenerator : MonoBehaviour
                     }
                 }
 
-                //from split level to node do do³u
+                //from split level to node do doï¿½u
                 Single undergroundCableStart = cableSplitLevel;
                 cableToGen = Mathf.Abs(cableSplitLevel - rightNode.transform.localPosition.y);
                 curvedCableStart = new Vector3(powerable.transform.localPosition.x + (rightOffset * leftRightOffset), undergroundCableStart);
+                rightKolanko = curvedCableStart;
                 for (Single cableGenerated = 0f; cableGenerated < cableToGen; cableGenerated += curvedCableHeight)
                 {
                     GameObject cableNew = Instantiate(objCurvedCable, trCables);
@@ -265,6 +272,8 @@ public class MapGenerator : MonoBehaviour
         powerable.AttachCables(thisCables);
 
         powerable.AttachPowerableActivationNodes(nodes);
+
+        powerable.AttachLeftAndRightKolanko(leftKolanko,rightKolanko);
 
         GeneratedPowerables.Add(powerable.gameObject);
     }

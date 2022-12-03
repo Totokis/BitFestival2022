@@ -17,7 +17,9 @@ public class PowerableObject : MonoBehaviour
 
     public PowerableActivationNode[] ActivationNodes;
 
-    public UnityEvent onPower;
+    public UnityEvent<List<Vector3>> onPower;
+
+    public PathController PathController;
 
     internal void AttachPowerableActivationNodes(PowerableActivationNode[] nodes)
     {
@@ -53,10 +55,9 @@ public class PowerableObject : MonoBehaviour
 
     private void PerformActivation()
     {
-        print("Activated " + name);
+        PathController.AddNodesAndStart(ArrayOfNodes());
 
         WasActivated = true;
-        onPower.Invoke();
         GetComponent<SpriteRenderer>().sprite = sprActive;
         Invoke(nameof(EnableLight), 0.2f);
 
@@ -87,8 +88,21 @@ public class PowerableObject : MonoBehaviour
 
         //gameObject.AddComponent<IncrementalGarbaz>();
     }
+    private List<Transform> ArrayOfNodes()
+    {
+        if (ActivationNodes.Length == 1)
+        {
+            return ActivationNodes.Select(t=>t.transform).ToList();
+        }
+        else
+        {
+            return new List<Transform>(0);
+        }
+    }
 
     List<GameObject> cables;
+    private Vector3 _rightKolanko;
+    private Vector3 _leftKolanko;
     internal void AttachCables(List<GameObject> thisCables)
     {
         cables = thisCables;
@@ -97,5 +111,11 @@ public class PowerableObject : MonoBehaviour
     private void EnableLight()
     {
         light.gameObject.SetActive(true);
+    }
+    
+    public void AttachLeftAndRightKolanko(Vector3 leftKolanko, Vector3 rightKolanko)
+    {
+        _leftKolanko = leftKolanko; 
+        _rightKolanko = rightKolanko;
     }
 }
