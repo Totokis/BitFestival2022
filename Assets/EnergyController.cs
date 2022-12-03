@@ -7,7 +7,7 @@ public class EnergyController : MonoBehaviour
 {
     public const Single GAME_OVER_ENERGY = 0f;
 
-    public Single CurrentEnergy = 50f;
+    public Single CurrentEnergy = 400f;
 
     public GameOver GO;
 
@@ -16,6 +16,12 @@ public class EnergyController : MonoBehaviour
     {
         CurrentEnergy = 50f;
     
+    }
+
+    public void ChangeEnergy(Single change)
+    {
+        CurrentEnergy += change;
+        print("Current energy " + CurrentEnergy);
     }
 
     Boolean yep = false;
@@ -36,7 +42,12 @@ public class EnergyController : MonoBehaviour
             if(tit.Kind == ThingKind.Resistor)
             {
                 print("Resistor");
-                CurrentEnergy -= 50f;
+                ChangeEnergy(-50f);
+            }
+            else if (tit.Kind == ThingKind.AdditionalEnergy)
+            {
+                print("Energy");
+                ChangeEnergy(10f);
             }
         }
     }

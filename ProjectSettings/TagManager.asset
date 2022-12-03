@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - BackCity
   - 
   - 
   - 
@@ -40,6 +40,9 @@ TagManager:
   m_SortingLayers:
   - name: Background
     uniqueID: 2160811249
+    locked: 0
+  - name: BackCity
+    uniqueID: 4223009489
     locked: 0
   - name: Default
     uniqueID: 0

@@ -82,17 +82,6 @@ public class PlayerController : MonoBehaviour
         lowerBoundReached.Invoke(levels.IndexOf(_currentLevel));
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        print("trig");
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        print("trig");
-
-    }
-
     //private void OnDrawGizmos()
     //{
     //    if (levels != null)
