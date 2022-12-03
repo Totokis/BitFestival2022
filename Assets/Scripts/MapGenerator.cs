@@ -67,7 +67,7 @@ public class MapGenerator : MonoBehaviour
         Single thisGenerationSegmentStartXBefore = _lastGroundX;
         Single totalUndergroundSegmentWidth = GenerateUndergrounds();
         thisGenerationSegmentStartXBefore -= (totalUndergroundSegmentWidth / 2f);
-        GenerateSkyBackgrounds();
+        //GenerateSkyBackgrounds();
         GenerateCables();
         GenerateBackCity();
 

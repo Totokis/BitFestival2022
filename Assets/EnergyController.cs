@@ -14,7 +14,7 @@ public class EnergyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CurrentEnergy = 400f;
+        CurrentEnergy = 10000;
     
     }
 
