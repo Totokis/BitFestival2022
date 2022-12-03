@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -29,8 +28,8 @@ public class PlayerController : MonoBehaviour
         var playerTransform = transform;
         var playerPosition = playerTransform.position;
         
-        playerPosition += Vector3.right * 1 * speed * Time.deltaTime;
-        playerPosition = new Vector3(playerPosition.x, _currentLevel.Height, playerPosition.z);
+        playerPosition += Vector3.right * (1 * speed * Time.deltaTime);
+        playerPosition = new Vector3(playerPosition.x, _currentLevel.height, playerPosition.z);
         
         playerTransform.position = playerPosition;
     }
@@ -89,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
             foreach (var level in levels)
             {
-                Gizmos.DrawLine(new Vector3(0,level.Height,0),new Vector3(1000,level.Height,0));
+                Gizmos.DrawLine(new Vector3(0,level.height,0),new Vector3(1000,level.height,0));
             }
         }
     }
@@ -99,7 +98,7 @@ public class PlayerController : MonoBehaviour
 internal class Level
 {
     //public int Order;
-    public float Height;
+    public float height;
 }
 
 
