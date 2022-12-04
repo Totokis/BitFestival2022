@@ -19,7 +19,7 @@ public class EnergyController : MonoBehaviour
     {
         EnergyIndicator.Stop();
         _initialScale = pssparks.transform.localScale;
-        CurrentEnergy = 74;
+        CurrentEnergy = 81;
         if (FindObjectOfType<GameOver>())
             GO = FindObjectOfType<GameOver>();
 
